@@ -4,3 +4,4 @@ from .job import Job
 from .application import Application
 from .event import Event
 from .question import Question
+from .userquestion import UserQuestion
