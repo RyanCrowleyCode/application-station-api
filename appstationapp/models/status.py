@@ -2,7 +2,7 @@ from django.db import models
 
 class Status(models.Model):
     """
-    This class is responsible for creating the Company instances.
+    This class is responsible for creating the Status instances.
 
     Author: 
         Ryan Crowley
