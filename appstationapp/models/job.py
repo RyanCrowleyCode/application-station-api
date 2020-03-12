@@ -1,4 +1,6 @@
 from django.db import models
+from djrichtextfield.widgets import RichTextField
+from .company import Company
 
 class Job(models.Model):
     """
@@ -9,6 +11,10 @@ class Job(models.Model):
     """
 
     title = models.CharField(max_length=100)
+    description = RichTextField(max_length=255)
+    link = models.CharField()
+    company = models.ForeignKey(Company, on_delete=models.CASCADE)
+
 
     class Meta:
         ordering = ("company_id", )
@@ -16,7 +22,7 @@ class Job(models.Model):
         verbose_name_plural = ("jobs")
 
     def __str__(self):
-        return self.name
+        return f'{self.title} ({company.name})'
 
     
 
