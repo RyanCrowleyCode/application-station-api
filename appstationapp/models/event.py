@@ -21,7 +21,7 @@ class Event(models.Model):
         verbose_name_plural = ("events")
 
     def __str__(self):
-        return 
+        return f'{self.details} beginning {self.start_time} and ending {self.end_time} (for application {self.application}'
 
     
 
