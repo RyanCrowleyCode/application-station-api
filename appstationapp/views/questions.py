@@ -36,9 +36,9 @@ class Questions(ViewSet):
         new_question.question = request.data["question"]
         new_question.is_from_interviewer = request.data["is_from_interviewer"]
         # uncomment this line when AUTH is ready
-        new_question.user_id = request.auth.user.id
+        new_question.candidate_id = request.auth.user.candidate.id
         # use this line UTNIL AUTH is ready
-        # new_question.user_id = request.data["user_id"]
+        # new_question.candidate_id = request.data["candidate_id"]
 
         new_question.save()
 

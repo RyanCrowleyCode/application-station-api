@@ -1,7 +1,7 @@
 from django.db import models
-from django.contrib.auth.models import User
 from .company import Company
 from .status import Status
+from .candidate import Candidate
 # from djrichtextfield.widgets import RichTextField
 
 class Job(models.Model):
@@ -15,7 +15,7 @@ class Job(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()
     link = models.CharField(max_length=255)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    candidate = models.ForeignKey(Candidate, on_delete=models.CASCADE)
     status = models.ForeignKey(Status, on_delete=models.DO_NOTHING)
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
 

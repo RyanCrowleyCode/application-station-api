@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from .candidate import Candidate
 # from djrichtextfield.widgets import RichTextField
 
 class Question(models.Model):
@@ -13,7 +13,7 @@ class Question(models.Model):
     question = models.TextField()
     is_from_interviewer = models.BooleanField()
     answer = models.TextField(null=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    candidate = models.ForeignKey(Candidate, on_delete=models.CASCADE)
 
 
     class Meta:
