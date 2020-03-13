@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.auth.models import User
+# from djrichtextfield.widgets import RichTextField
 
 class Question(models.Model):
     """
@@ -10,15 +12,19 @@ class Question(models.Model):
 
     question = models.TextField
     is_from_interviewer = models.BooleanField()
+    answer = models.TextField()
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
 
 
     class Meta:
         ordering = ("start_time", ) 
         verbose_name = ("question")
         verbose_name_plural = ("questions")
+        
 
     def __str__(self):
-        return f'"{self.question}" -from interviewer = {self.is_from_interviewer}"'
+        author = 'Interviewer' if self.is_from_interviewer else 'Me'
+        return f'"{self.question}" - {author}'
 
     
 
