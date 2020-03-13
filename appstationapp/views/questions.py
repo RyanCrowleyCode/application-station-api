@@ -62,8 +62,12 @@ class Questions(ViewSet):
 
         try:
             question = Question.objects.get(pk=pk)
-            serializer = QuestionSerializer(question, context={'request': request})
-            return Response(serializer.data)
+            candidate_id = request.auth.user.candidate.id
+
+            # filter by the logged in candidate
+            if question.candidate.id == candidate_id:
+                serializer = QuestionSerializer(question, context={'request': request})
+                return Response(serializer.data)
         except Exception as ex:
             return HttpResponseServerError(ex)
 
