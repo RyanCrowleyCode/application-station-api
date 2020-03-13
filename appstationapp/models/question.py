@@ -17,7 +17,6 @@ class Question(models.Model):
 
 
     class Meta:
-        ordering = ("start_time", ) 
         verbose_name = ("question")
         verbose_name_plural = ("questions")
         
