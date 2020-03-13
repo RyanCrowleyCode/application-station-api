@@ -22,6 +22,8 @@ from appstationapp.views import *
 
 router = routers.DefaultRouter(trailing_slash=False)
 
+router.register(r'questions', Questions, 'question')
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
