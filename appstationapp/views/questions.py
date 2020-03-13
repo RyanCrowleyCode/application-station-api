@@ -29,6 +29,9 @@ class Questions(ViewSet):
     def create(self, request):
         """Handle POST operations
 
+        Fetch call to pos question by question id:
+            http://localhost:8000/questions
+
         Returns:
             Response -- JSON serialized Question instance
         """
@@ -44,3 +47,21 @@ class Questions(ViewSet):
         )
 
         return Response(serializer.data)
+
+    # Handles GET one ( like questions/3 )
+    def retrieve(self, request, pk=None):
+        """Handle GET requests for a single question
+
+        Fetch call to get one question by question id:
+            http://localhost:8000/questions/${id}
+
+        Returns:
+            Response -- JSON serialized Question instance
+        """
+
+        try:
+            question = Question.objects.get(pk=pk)
+            serializer = QuestionSerializer(question, context={'request': request})
+            return Response(serializer.data)
+        except Exception as ex:
+            return HttpResponseServerError(ex)
