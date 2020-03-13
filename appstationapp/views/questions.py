@@ -19,7 +19,7 @@ class QuestionSerializer(serializers.HyperlinkedModelSerializer):
             view_name="question",
             lookup_field='id'
         )
-        fields = ('id', 'url', 'is_from_interviewer', 'answer', 'candidate_id')
+        fields = ('id', 'url', 'question', 'is_from_interviewer', 'answer', 'candidate_id')
 
 
 class Questions(ViewSet):
@@ -99,3 +99,31 @@ class Questions(ViewSet):
 
         # Return the JSON response
         return Response(serializer.data)
+
+    
+    # Handles PUT
+    def update(self, request, pk=None):
+        """Handle PUT requests for a question
+
+        Fetch call to PUT one question by question id:
+            http://localhost:8000/questions/${id}
+
+        Returns:
+            Response -- Empty body with 204 status code
+        """
+        try:
+            question = Question.objects.get(pk=pk)
+            candidate_id = request.auth.user.candidate.id
+
+            # filter by the logged in candidate
+            if question.candidate.id == candidate_id:
+                # need to update question, need to update is from interviewer
+                question.question = request.data["question"]
+                question.is_from_interviewer = request.data["is_from_interviewer"]
+                question.save()
+                
+                return Response({}, status=status.HTTP_204_NO_CONTENT)
+
+        except Exception as ex:
+            return HttpResponseServerError(ex)
+        
