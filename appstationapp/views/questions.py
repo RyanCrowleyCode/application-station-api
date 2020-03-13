@@ -19,7 +19,7 @@ class QuestionSerializer(serializers.HyperlinkedModelSerializer):
             view_name="question",
             lookup_field='id'
         )
-        fields = ('id', 'is_from_interviewer', 'answer', 'user_id')
+        fields = ('id', 'url', 'is_from_interviewer', 'answer', 'candidate_id')
 
 
 class Questions(ViewSet):
@@ -32,15 +32,11 @@ class Questions(ViewSet):
         Returns:
             Response -- JSON serialized Question instance
         """
-        new_question = Question()
-        new_question.question = request.data["question"]
-        new_question.is_from_interviewer = request.data["is_from_interviewer"]
-        # uncomment this line when AUTH is ready
-        new_question.candidate_id = request.auth.user.candidate.id
-        # use this line UTNIL AUTH is ready
-        # new_question.candidate_id = request.data["candidate_id"]
-
-        new_question.save()
+        new_question = Question.objects.create(
+            question=request.data["question"],
+            is_from_interviewer=request.data["is_from_interviewer"],
+            candidate_id=request.auth.user.candidate.id
+        )  
 
         serializer = QuestionSerializer(
             new_question,
