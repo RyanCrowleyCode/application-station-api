@@ -33,13 +33,14 @@ class Questions(ViewSet):
             Response -- JSON serialized Question instance
         """
         new_question = Question()
+        new_question.question = request.data["question"]
         new_question.is_from_interviewer = request.data["is_from_interviewer"]
         # uncomment this line when AUTH is ready
         # new_question.user_id = request.auth.user.id
         # use this line UTNIL AUTH is ready
         new_question.user_id = request.data["user_id"]
 
-        new_quesiton.save()
+        new_question.save()
 
         serializer = QuestionSerializer(
             new_question,

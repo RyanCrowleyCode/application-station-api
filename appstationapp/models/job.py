@@ -15,7 +15,7 @@ class Job(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()
     link = models.CharField(max_length=255)
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     status = models.ForeignKey(Status, on_delete=models.DO_NOTHING)
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
 

@@ -13,7 +13,7 @@ class Question(models.Model):
     question = models.TextField
     is_from_interviewer = models.BooleanField()
     answer = models.TextField(null=True)
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
     class Meta:
