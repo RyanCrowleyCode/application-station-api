@@ -108,6 +108,9 @@ class Questions(ViewSet):
         Fetch call to PUT one question by question id:
             http://localhost:8000/questions/${id}
 
+        Fetch call to PUT answer to a question by question id:
+            http://localhost:8000/questions/${id}?answer=true
+
         Returns:
             Response -- Empty body with 204 status code
         """
@@ -117,11 +120,19 @@ class Questions(ViewSet):
 
             # filter by the logged in candidate
             if question.candidate.id == candidate_id:
-                # need to update question, need to update is from interviewer
-                question.question = request.data["question"]
-                question.is_from_interviewer = request.data["is_from_interviewer"]
+
+                # check to see if this is an update on an answer to a question
+                is_answer = request.query_params.get('answer', False)
+
+                if is_answer:
+                    question.answer = request.data["answer"]
+                else:
+                    # need to update question, need to update is from interviewer
+                    question.question = request.data["question"]
+                    question.is_from_interviewer = request.data["is_from_interviewer"]
+
                 question.save()
-                
+
                 return Response({}, status=status.HTTP_204_NO_CONTENT)
 
         except Exception as ex:
