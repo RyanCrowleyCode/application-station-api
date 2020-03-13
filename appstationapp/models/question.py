@@ -10,7 +10,7 @@ class Question(models.Model):
         Ryan Crowley
     """
 
-    question = models.TextField
+    question = models.TextField()
     is_from_interviewer = models.BooleanField()
     answer = models.TextField(null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
