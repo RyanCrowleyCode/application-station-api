@@ -27,7 +27,7 @@ class Questions(ViewSet):
 
     # Handles POST
     def create(self, request):
-        """Handle POST operations
+        """Handle POST for Question
 
         Fetch call to pos question by question id:
             http://localhost:8000/questions
@@ -48,6 +48,7 @@ class Questions(ViewSet):
 
         return Response(serializer.data)
 
+
     # Handles GET one ( like questions/3 )
     def retrieve(self, request, pk=None):
         """Handle GET requests for a single question
@@ -65,3 +66,32 @@ class Questions(ViewSet):
             return Response(serializer.data)
         except Exception as ex:
             return HttpResponseServerError(ex)
+
+
+    # Handles GET all
+    def list(self, request):
+        """Handle GET requests to Questions
+
+        Fetch call to get all questions:
+            http://localhost:8000/questions
+
+        Returns:
+            Response -- JSON serialized list of questions
+        """
+
+        # list of question instances
+        questions = Question.objects.all()
+
+        # filter by the logged in candidate
+        candidate_id = request.auth.user.candidate.id
+        questions = questions.filter(candidate__id=candidate_id)
+
+        # takes questions and converts to JSON
+        serializer = QuestionSerializer(
+            questions,
+            many=True,
+            context={'request': request}
+        )
+
+        # Return the JSON response
+        return Response(serializer.data)
