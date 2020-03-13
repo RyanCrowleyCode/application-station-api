@@ -23,6 +23,7 @@ from appstationapp.views import *
 router = routers.DefaultRouter(trailing_slash=False)
 
 urlpatterns = [
+    path('admin/', admin.site.urls),
     path('', include(router.urls)),
     # path('djrichtextfield/', include('djrichtextfield.urls')),
 ]
