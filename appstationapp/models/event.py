@@ -1,5 +1,5 @@
 from django.db import models
-from .application import Application
+from .job import Job
 
 class Event(models.Model):
     """
@@ -9,7 +9,7 @@ class Event(models.Model):
         Ryan Crowley
     """
 
-    application = models.ForeignKey(Application, on_delete=models.CASCADE)
+    job = models.ForeignKey(Job, on_delete=models.CASCADE)
     details = models.CharField(max_length=255)
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
