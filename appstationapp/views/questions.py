@@ -19,7 +19,7 @@ class QuestionSerializer(serializers.HyperlinkedModelSerializer):
             view_name="question",
             lookup_field='id'
         )
-        fields = ('id', 'is_from_interviewer', 'answer', 'user_id')
+        fields = ('id', 'url', 'is_from_interviewer', 'answer', 'user_id')
 
 
 class Questions(ViewSet):
