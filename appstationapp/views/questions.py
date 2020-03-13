@@ -137,4 +137,35 @@ class Questions(ViewSet):
 
         except Exception as ex:
             return HttpResponseServerError(ex)
-        
+    
+
+    # Handles DELETE
+    def destroy(self, request, pk=None):
+        """Handles DELETE requests for a single question
+
+        Fetch call to DELETE one question by question id:
+            http://localhost:8000/questions/${id}
+
+        Returns:
+            Response -- 204, 404, or 500 status code
+        """
+        try:
+            question = Question.objects.get(pk=pk)
+            candidate_id = request.auth.user.candidate.id
+
+            # filter by the logged in candidate
+            if question.candidate.id == candidate_id:
+                question.delete()
+
+                return Response({}, status=status.HTTP_204_NO_CONTENT)
+
+        except Question.DoesNotExist as ex:
+            return Response(
+                {'message': ex.arg[0]}, status=status.HTTP_404_NOT_FOUND
+            )
+
+        except Exception as ex:
+            return Response({'message': ex.arg[0]},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+
