@@ -1,4 +1,12 @@
-"""View module for handling requests about companies"""
+"""View module for handling requests about companies
+
+    Users will NOT be able to delete or update a company. This is because 
+    company names will NOT be user specific, and a user should not be able
+    to update or delete a company that may be used by another user. The 
+    effects of updating a company name will be to actually post a NEW
+    company, and then update the company_id associated with that particular
+    job.
+"""
 from django.http import HttpResponseServerError
 from rest_framework.response import Response
 from rest_framework import serializers, status
@@ -92,50 +100,3 @@ class Companies(ViewSet):
         )
 
         return Response(serializer.data)
-
-
-    # Handles PUT
-    def update(self, request, pk=None):
-        """Handle PUT requests for a company
-
-        Fetch call to PUT one company by company id:
-            http://localhost:8000/companies/${id}
-
-        Returns:
-            Response -- Empty body with 204 status code
-        """
-        try:
-            company = Company.objects.get(pk=pk)
-            company.name = request.data["name"]
-            company.save()
-            return Response({}, status=status.HTTP_204_NO_CONTENT)
-
-        except Exception as ex:
-            return HttpResponseServerError(ex)
-
-
-    # Handles DELETE
-    def destroy(self, request, pk=None):
-        """Handles DELETE requests for a single company
-
-        Fetch call to DELETE one company by company id:
-            http://localhost:8000/companies/${id}
-
-        Returns:
-            Response -- 204, 404, or 500 status code
-        """
-
-        try:
-            company = Company.objects.get(pk=pk)
-            company.delete()
-            return Response({}, status=status.HTTP_204_NO_CONTENT)
-
-        except Company.DoesNotExist as ex:
-            return Response(
-                {'message': ex.arg[0]}, status=status.HTTP_404_NOT_FOUND
-            )
-
-        except Exception as ex:
-            return Response({'message': ex.arg[0]},
-                status=status.HTTP_500_INTERNAL_SERVER_ERROR
-            )
