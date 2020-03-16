@@ -154,7 +154,7 @@ class Questions(ViewSet):
             question = Question.objects.get(pk=pk)
             candidate_id = request.auth.user.candidate.id
 
-            # filter by the logged in candidate
+            # confirm logged in user owns the question being deleted
             if question.candidate.id == candidate_id:
                 question.delete()
 
