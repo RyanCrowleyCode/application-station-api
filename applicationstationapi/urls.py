@@ -24,6 +24,7 @@ router = routers.DefaultRouter(trailing_slash=False)
 
 router.register(r'questions', Questions, 'question')
 router.register(r'companies', Companies, 'company')
+router.register(r'statuses', Statuses, 'status')
 
 urlpatterns = [
     path('admin/', admin.site.urls),

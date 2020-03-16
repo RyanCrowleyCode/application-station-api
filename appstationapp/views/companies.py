@@ -34,7 +34,7 @@ class CompanySerializer(serializers.HyperlinkedModelSerializer):
 class Companies(ViewSet):
     """Companies for Application Station"""
 
-    # Handles GET one ( example: questions/3 )
+    # Handles GET one ( example: statuses/3 )
     def retrieve(self, request, pk=None):
         """Handle GET requests for a single company
 
@@ -65,10 +65,10 @@ class Companies(ViewSet):
             Response -- JSON serialized list of companies
         """
 
-        # list of question instances
+        # list of company instances
         companies = Company.objects.all()
 
-        # takes questions and converts to JSON
+        # takes companies and converts to JSON
         serializer = CompanySerializer(
             companies,
             many=True,
