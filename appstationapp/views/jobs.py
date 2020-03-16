@@ -40,8 +40,8 @@ class Jobs(ViewSet):
             description=request.data["description"],
             link=request.data["link"],
             candidate_id=request.auth.user.candidate.id,
-            status_id=request.data["statusId"],
-            company_id=request.data["companyId"]
+            status_id=request.data["status_id"],
+            company_id=request.data["company_id"]
         )  
 
         serializer = JobSerializer(
@@ -126,8 +126,8 @@ class Jobs(ViewSet):
                 job.title = request.data["title"]
                 job.description = request.data["description"]
                 job.link = request.data["link"]
-                job.status_id = request.data["statusId"]
-                job.company_id = request.data["companyId"]
+                job.status_id = request.data["status_id"]
+                job.company_id = request.data["company_id"]
 
                 job.save()
 
