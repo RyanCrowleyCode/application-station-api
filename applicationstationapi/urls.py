@@ -26,6 +26,7 @@ router.register(r'questions', Questions, 'question')
 router.register(r'companies', Companies, 'company')
 router.register(r'statuses', Statuses, 'status')
 router.register(r'jobs', Jobs, 'job')
+router.register(r'events', Events, 'event')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
