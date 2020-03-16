@@ -80,13 +80,62 @@ class Companies(ViewSet):
         Returns:
             Response -- JSON serialized Company instance
         """
+
         new_company = Company.objects.create(
-            name=request.data["name"],
+            # all company names will be saved lowercase
+            name=request.data["name"].lower(),
         )  
 
-        serializer = QuestionSerializer(
+        serializer = CompanySerializer(
             new_company,
             context={'request': request}
         )
 
         return Response(serializer.data)
+
+
+    # Handles PUT
+    def update(self, request, pk=None):
+        """Handle PUT requests for a company
+
+        Fetch call to PUT one company by company id:
+            http://localhost:8000/companies/${id}
+
+        Returns:
+            Response -- Empty body with 204 status code
+        """
+        try:
+            company = Company.objects.get(pk=pk)
+            company.name = request.data["name"]
+            company.save()
+            return Response({}, status=status.HTTP_204_NO_CONTENT)
+
+        except Exception as ex:
+            return HttpResponseServerError(ex)
+
+
+    # Handles DELETE
+    def destroy(self, request, pk=None):
+        """Handles DELETE requests for a single company
+
+        Fetch call to DELETE one company by company id:
+            http://localhost:8000/companies/${id}
+
+        Returns:
+            Response -- 204, 404, or 500 status code
+        """
+
+        try:
+            company = Company.objects.get(pk=pk)
+            company.delete()
+            return Response({}, status=status.HTTP_204_NO_CONTENT)
+
+        except Company.DoesNotExist as ex:
+            return Response(
+                {'message': ex.arg[0]}, status=status.HTTP_404_NOT_FOUND
+            )
+
+        except Exception as ex:
+            return Response({'message': ex.arg[0]},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
