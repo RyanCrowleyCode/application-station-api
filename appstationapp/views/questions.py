@@ -29,7 +29,7 @@ class Questions(ViewSet):
     def create(self, request):
         """Handle POST for Question
 
-        Fetch call to pos question by question id:
+        Fetch call to post question:
             http://localhost:8000/questions
 
         Returns:
@@ -49,7 +49,7 @@ class Questions(ViewSet):
         return Response(serializer.data)
 
 
-    # Handles GET one ( like questions/3 )
+    # Handles GET one ( example: questions/3 )
     def retrieve(self, request, pk=None):
         """Handle GET requests for a single question
 
@@ -68,6 +68,7 @@ class Questions(ViewSet):
             if question.candidate.id == candidate_id:
                 serializer = QuestionSerializer(question, context={'request': request})
                 return Response(serializer.data)
+
         except Exception as ex:
             return HttpResponseServerError(ex)
 
