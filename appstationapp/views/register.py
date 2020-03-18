@@ -78,8 +78,9 @@ def register_user(request):
         data = json.dumps({"token": token.key})
         return HttpResponse(data, content_type='application/json')
     
-    except Exception as ex:
-            return HttpResponseServerError(ex)
+    except Exception:
+            data = json.dumps({'valid': False})
+            return HttpResponse(data, content_type="application/json")
 
 
 
