@@ -31,6 +31,7 @@ class CompanySerializer(serializers.HyperlinkedModelSerializer):
         fields = ('id', 'url', 'name')
 
 
+
 class Companies(ViewSet):
     """Companies for Application Station"""
 

@@ -32,6 +32,9 @@ class Events(ViewSet):
         Fetch call to post event:
             http://localhost:8000/events
 
+        Fetch call to get events based on job_id:
+            http://localhost:8000/events?job_id=${job_id}
+
         Returns:
             Response -- JSON serialized Question instance
         """
@@ -102,6 +105,11 @@ class Events(ViewSet):
         # filter by the logged in candidate
         candidate_id = request.auth.user.candidate.id
         events = events.filter(job__candidate_id=candidate_id)
+
+        # Get the job ID from the query params. If job_id filter events by job_id
+        job_id = self.request.query_params.get('job_id', False)
+        if job_id:
+            events = events.filter(job__id=job_id)
 
         # takes events and converts to JSON
         serializer = EventSerializer(
