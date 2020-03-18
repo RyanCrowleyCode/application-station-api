@@ -1,6 +1,6 @@
 """View module for handling Login and Register"""
 import json
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseServerError
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
@@ -53,29 +53,33 @@ def register_user(request):
     # Load the JSON string of the request body into a dictionary
     req_body = json.loads(request.body.decode())
 
-    # Create a new user by invoking the 'create_user' helper method
-    # 'create_user' is built in to Django's User model
-    new_user = User.objects.create_user(
-        username=req_body['username'],
-        email=req_body['email'],
-        password=req_body['password'],
-        first_name=req_body['first_name'],
-        last_name=req_body['last_name'],
-        is_active=True
-    )
+    try:
+        # Create a new user by invoking the 'create_user' helper method
+        # 'create_user' is built in to Django's User model
+        new_user = User.objects.create_user(
+            username=req_body['email'],
+            email=req_body['email'],
+            password=req_body['password'],
+            first_name=req_body['first_name'],
+            last_name=req_body['last_name'],
+            is_active=True
+        )
 
-    # Now, create a Candidate where the user = new_user created above
-    new_candidate = Candidate.objects.create(
-        user=new_user
-    )
+        # Now, create a Candidate where the user = new_user created above
+        new_candidate = Candidate.objects.create(
+            user=new_user
+        )
 
-    # Use the REST Framework's token generator on the new user account
-    token = Token.objects.create(user=new_user)
+        # Use the REST Framework's token generator on the new user account
+        token = Token.objects.create(user=new_user)
 
 
-    # Return the token to the client
-    data = json.dumps({"token": token.key})
-    return HttpResponse(data, content_type='application/json')
+        # Return the token to the client
+        data = json.dumps({"token": token.key})
+        return HttpResponse(data, content_type='application/json')
+    
+    except Exception as ex:
+            return HttpResponseServerError(ex)
 
 
 
