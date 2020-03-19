@@ -62,12 +62,20 @@ class Companies(ViewSet):
         Fetch call to get all companies:
             http://localhost:8000/companies
 
+        Fetch call to get company based on name:
+            http://localhost:8000/companies?name=${name}
+
         Returns:
             Response -- JSON serialized list of companies
         """
 
         # list of company instances
         companies = Company.objects.all()
+
+        # Get the name from the query params. If name, filter companies by name
+        name = self.request.query_params.get('name', False)
+        if name:
+            companies = companies.filter(name=name)
 
         # takes companies and converts to JSON
         serializer = CompanySerializer(
