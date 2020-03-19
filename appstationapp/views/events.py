@@ -32,8 +32,6 @@ class Events(ViewSet):
         Fetch call to post event:
             http://localhost:8000/events
 
-        Fetch call to get events based on job_id:
-            http://localhost:8000/events?job_id=${job_id}
 
         Returns:
             Response -- JSON serialized Question instance
@@ -94,6 +92,9 @@ class Events(ViewSet):
 
         Fetch call to get all events:
             http://localhost:8000/events
+
+        Fetch call to get events based on job_id:
+            http://localhost:8000/events?job_id=${job_id}
 
         Returns:
             Response -- JSON serialized list of events
