@@ -89,17 +89,17 @@ Events are user specific. You must pass a valid token in the header:
 - `Authorization: Token ${token}`
 
 
-- Fetch call to post event:
+- Fetch call to POST event:
   - `http://localhost:8000/events`
   - `{"details": "", "start_time": "", "end_time": "", "job_id": ${id}}`
 
-- Fetch call to get one event by event id:
+- Fetch call to GET one event by event id:
   - `http://localhost:8000/events/${id}`
 
-- Fetch call to get all events:
+- Fetch call to GET all events:
   - `http://localhost:8000/events`
 
-- Fetch call to get events based on job_id:
+- Fetch call to GET events based on job_id:
   - `http://localhost:8000/events?job_id=${job_id}`
 
 - Fetch call to PUT one event by event id:
@@ -117,20 +117,22 @@ Jobs are user specific. You must pass a valid token in the header:
 - `Authorization: Token ${token}`
 
 
-- Fetch call to post job:
-  - http://localhost:8000/jobs
+- Fetch call to POST job:
+  - `http://localhost:8000/jobs`
+  - `{"title": "", "description": "", "link": "", "status_id": ${id}, "company_id": ${id}}`
 
-- Fetch call to get one job by job id:
-  - http://localhost:8000/jobs/${id}
+- Fetch call to GET one job by job id:
+  - `http://localhost:8000/jobs/${id}`
 
-- Fetch call to get all jobs:
-  - http://localhost:8000/jobs
+- Fetch call to GET all jobs:
+  - `http://localhost:8000/jobs`
 
 - Fetch call to PUT one job by job id:
-  - http://localhost:8000/jobs/${id}
+  - `http://localhost:8000/jobs/${id}`
+  - `{"title": "", "description": "", "link": "", "status_id": ${id}, "company_id": ${id}}`
 
 - Fetch call to DELETE one job by job id:
-  - http://localhost:8000/jobs/${id}
+  - `http://localhost:8000/jobs/${id}`
 
 
 ## Questions
@@ -139,20 +141,33 @@ Questions are user specific. You must pass a valid token in the header:
 
 - `Authorization: Token ${token}`
 
-- Fetch call to post question:
-  - http://localhost:8000/questions
 
-- Fetch call to get one question by question id:
-  - http://localhost:8000/questions/${id}
+- Fetch call to POST question:
+  - `http://localhost:8000/questions`
+  - `{"question": "", "is_from_interviewer": ${boolean}}`
 
-- Fetch call to get all questions:
-  - http://localhost:8000/questions
+- Fetch call to GET one question by question id:
+  - `http://localhost:8000/questions/${id}`
+
+- Fetch call to GET all questions:
+  - `http://localhost:8000/questions`
 
 - Fetch call to PUT one question by question id:
-  - http://localhost:8000/questions/${id}
+  - `http://localhost:8000/questions/${id}`
+  - `{"question": "", "is_from_interviewer": ${boolean}}`
 
 - Fetch call to PUT answer to a question by question id:
-  - http://localhost:8000/questions/${id}?answer=true
+  - `http://localhost:8000/questions/${id}?answer=true`
+  - `{"question": "", "is_from_interviewer": ${boolean}, "answer": ""}`
 
 - Fetch call to DELETE one question by question id:
-  - http://localhost:8000/questions/${id}
+  - `http://localhost:8000/questions/${id}`
+
+
+## Statuses
+
+- Fetch call to GET all statuses:
+  - `http://localhost:8000/statuses`
+
+- Fetch call to get one status by status id:
+  - `http://localhost:8000/statuses/${id}`
