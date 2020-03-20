@@ -47,7 +47,7 @@ https://github.com/RyanCrowleyCode/application-station
   - `python manage.py runserver`
 
 
-## Fetch calls
+# Fetch calls
 
 Should you choose leverage this API for your own front-end application, please reference the example fetch calls to the endpoints below to see some of the capability of this API. Please note that you will need to pass the Token in the headers for most requests.
 
