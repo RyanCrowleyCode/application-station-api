@@ -12,6 +12,9 @@ from appstationapp.models import Candidate
 def login_user(request):
     '''Handles the authentication of a user
 
+    Fetch call to login an existing user (POST)
+        http://localhost:8000/login
+
     Arguments:
         Request -- the full HTTP request object
     '''
@@ -44,7 +47,10 @@ def register_user(request):
     '''Handles the creation of a new user for authentication.
 
     Arguments:
-      Request -- the full HTTP request object
+        Request -- the full HTTP request object
+
+    Fetch call to register a new user (POST)
+        http://localhost:8000/register
 
     Returns:
         Token -- token in JSON
