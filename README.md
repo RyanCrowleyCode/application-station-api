@@ -55,31 +55,28 @@ Should you choose leverage this API for your own front-end application, please r
 ## Users
 
 - Fetch call to register a new user (POST)
-  - http://localhost:8000/register
-  {
-    "email": "",
-    "password": "",
-    "first_name": "",
-    "last_name": ""
-  }
+  - `http://localhost:8000/register`
+  - `{"email": "", "password": "", "first_name": "", "last_name": ""}`
 
 - Fetch call to login an existing user (POST)
-  - http://localhost:8000/login
+  - `http://localhost:8000/login`
+  - `{"username": "", "password": ""}`
 
 
 ## Companies
 
-- Fetch call to get one company by company id:
+- Fetch call to GET one company by company id:
   - http://localhost:8000/companies/${id}
 
-- Fetch call to get all companies:
+- Fetch call to GET all companies:
   - http://localhost:8000/companies
 
-- Fetch call to get company based on name:
+- Fetch call to GET company based on name:
   - http://localhost:8000/companies?name=${name}
 
-- Fetch call to post company:
+- Fetch call to POST company:
   - http://localhost:8000/companies
+  - {"name": ""}
 
 
 ## Events
@@ -91,6 +88,7 @@ Events are user specific. You must pass a valid token in the header:
 
 - Fetch call to post event:
   - http://localhost:8000/events
+  - {"details": "", "start_time": "", "end_time": "", "job_id": ${id}}
 
 - Fetch call to get one event by event id:
   - http://localhost:8000/events/${id}
