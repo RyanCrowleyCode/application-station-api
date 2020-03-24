@@ -1,17 +1,10 @@
 # Application Station Django REST API
 
-## What is Application Station API?
-
 This API provides a way to interface with the database for Application Station. The corresponding repository for the React application can be found here:
 https://github.com/RyanCrowleyCode/application-station
 
+
 ## Steps to get the Application Station API started
-
-
-## Front-End Client
-
-- This API is dependent on the front-end client. You can find it here:
-https://github.com/RyanCrowleyCode/application-station
 
 1. Create a new directory in your terminal. Clone down this repository by clicking the "Clone or Download" button above, copying the SSH key, and running the following command in your terminal `git clone sshKeyGoesHere`.
 2. `cd applicationstationapi`
@@ -45,6 +38,14 @@ https://github.com/RyanCrowleyCode/application-station
 8. Fire up your dev server and get to work!
 
   - `python manage.py runserver`
+
+
+
+
+## Front-End Client
+
+- This API is dependent on the front-end client. You can find it here:
+https://github.com/RyanCrowleyCode/application-station
 
 
 # Fetch calls
