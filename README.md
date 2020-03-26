@@ -3,6 +3,8 @@
 This API provides a way to interface with the database for Application Station. The corresponding repository for the React application can be found here:
 https://github.com/RyanCrowleyCode/application-station
 
+![ERD](./ApplicationStationERD.png)
+
 
 ## Steps to get the Application Station API started
 
